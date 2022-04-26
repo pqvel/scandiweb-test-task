@@ -1,0 +1,19 @@
+.products {
+  padding-bottom: 191px;
+  
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 40px;
+  }
+
+  &__title {
+    color: #1D1F22;
+    font-size: 42px; // 42px
+    line-height: 160%;
+    
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}

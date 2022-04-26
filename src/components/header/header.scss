@@ -1,0 +1,23 @@
+.header {
+
+    background-color: #FFFFFF;
+    &__container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .categories {
+        display: flex;
+        margin: 0;
+
+        &__link {
+            display: block;
+            padding: 16px;
+            text-transform: uppercase;
+        }
+
+        &__link--active {
+            border-bottom: 1px solid #5ECE7B;
+        }
+    }
+}

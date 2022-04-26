@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FFFFFF;
+}
+
+a {
+  text-decoration: none;
+}
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+.container {
+  padding: 0 30px;
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+// font-family: 'Raleway', sans-serif;
+// font-family: 'Roboto', sans-serif;
+// font-family: 'Roboto Condensed', sans-serif;
+// font-family: 'Source Sans Pro', sans-serif;
