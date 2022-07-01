@@ -1,54 +1,86 @@
 import { Component } from 'react'
-import apolloClient from '../../core/ApolloClient'
-import { GET_PRODUCTS } from '../../core/graphql/query/getProducts'
-import ProductItem from '../productItem/ProductItem'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { fetchProducts, addToCart, resetErorr } from '../../core/redux/slices/productsSlice'
+import ErrorMessage from '../errorMessage/ErrorMessage'
+import Spinner from '../spinner/Spinner'
+import ProductItem from '../productItem/ProductItem'
 import './productList.scss'
 
 class ProductList extends Component {
-  state = {
-    products: [],
-    categoryName: ''
-  }
 
   componentDidMount() {
     const { categoryId } = this.props.match.params
-    this.getProducts(categoryId)
+    this.props.fetchProducts(categoryId)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     const currCategoryId = this.props.match.params.categoryId
-    if (this.props.match.params.categoryId !== prevProps.match.params.categoryId) {
-      this.getProducts(currCategoryId)
+    const prevCategoryId = prevProps.match.params.categoryId
+    
+    if (currCategoryId !== prevCategoryId) {
+      this.props.fetchProducts(currCategoryId)
     }
   }
-  getProducts(categoryId) {
-    apolloClient
-      .query({ query: GET_PRODUCTS, variables: {input: {title: categoryId}}})
-      .then(({ data }) => {
-        const { name, products } = data.category
-        this.setState({
-          categoryName: name,
-          products: products,
-        })
-      })
+
+  onAddToCart = (event, product) => {
+    event.stopPropagation(); event.preventDefault();
+    this.props.addToCart(product)
+  }
+
+  onError = () => {
+    const { resetErorr, fetchProducts } = this.props
+    const { categoryId } = this.props.match.params
+    
+    resetErorr()
+    fetchProducts(categoryId)
   }
 
   render() {
-    const { categoryName, products } = this.state
-    return (
-      <section className="products">
-        <div className="container products__container">
-          <h3 className="products__title">{categoryName}</h3>
-          <ul className="products__list">
-            {products.map((item) => {
-              return <ProductItem key={item.id} product={item} />
-            })}
-          </ul>
+    const { products, error, loading } = this.props
+
+    if (error) {
+      return <ErrorMessage clickHandler={() => this.onError()}/>
+    }
+
+    if (loading) {
+      return (
+        <div className="products__spinner">
+          <Spinner />
         </div>
-      </section>
+      )
+    }
+    
+    return (
+      <ul className="products__list">
+        {products ? 
+          products.map((item) => {
+            const { categoryId } = this.props.match.params
+            return ( 
+              <ProductItem 
+                key={item.id} 
+                product={item} 
+                currUrl={categoryId}
+                onAddToCart={(event) => this.onAddToCart(event, item)}
+              />
+            )
+          }) : null
+        }
+      </ul>
     )
   }
 }
 
-export default withRouter(ProductList)
+const mapStateToProps = (state) => ({
+  products: state.products.products,
+  loading: state.products.loading,
+  error: state.products.error
+})
+
+const mapDispatchToProps = {
+  addToCart,
+  fetchProducts,
+  resetErorr
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProductList))

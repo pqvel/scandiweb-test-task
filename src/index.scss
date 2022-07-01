@@ -5,15 +5,22 @@
 
 body {
   margin: 0;
+  min-height: 100vh;
+  position: relative;
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #FFFFFF;
 }
 
+.main {
+  height: 100%;
+}
+
 a {
   text-decoration: none;
 }
+
 ul, ol {
   padding: 0;
   list-style: none;
@@ -25,8 +32,3 @@ ul, ol {
   width: 100%;
   margin: 0 auto;
 }
-
-// font-family: 'Raleway', sans-serif;
-// font-family: 'Roboto', sans-serif;
-// font-family: 'Roboto Condensed', sans-serif;
-// font-family: 'Source Sans Pro', sans-serif;

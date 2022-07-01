@@ -1,0 +1,92 @@
+.currency {
+  position: relative;
+  margin-right: 22px;
+
+  &__checkmark {
+    margin-bottom: 2px;
+  }
+
+  &__value {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    color: #1D1F22;
+    margin-right: 10px;
+  }
+
+  &__checkmark {
+    transition: 0.25s;
+    &--close {
+      transform: rotate(-180deg);
+    }
+  }
+
+  &__select {
+    overflow: hidden;
+    position: absolute;
+    top: calc(100% + 2px);
+    left: -30px;
+    z-index: 100;
+    filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
+    background-color: #FFFFFF;
+    animation-duration: 0.25s;
+    animation-name: slideIn;
+    padding: 12px 0;
+  }
+
+  &__wrapper {
+    cursor: pointer;
+  }
+
+  &__popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    color: #1D1F22;
+    padding: 0 5px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    text-align: center;
+    transition: 0.25s;
+    cursor: pointer;
+    padding: 8px 38px 8px 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    &:hover {
+      background-color: #EEEEEE;
+    }
+    
+    &-value {
+      display: inline-block;
+      width: 24px;
+      margin-right: 7px;
+    }
+
+    &-label {
+      display: inline-block;
+      width: 40px;
+      text-align: start;
+    }
+  }
+
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+}

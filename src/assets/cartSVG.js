@@ -3,8 +3,8 @@ import { PureComponent } from 'react'
 
 export default class CartSVG extends PureComponent {
   static defaultProps = {
-    fill: '#43464E',
-    class: '',
+    fill: "#43464E",
+    myClass: "",
   }
 
   render() {

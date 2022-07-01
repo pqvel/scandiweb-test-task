@@ -1,54 +1,57 @@
 import { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import apolloClient from '../../core/ApolloClient'
-import { getCategories } from '../../core/graphql/query/getCategories'
-import CartSVG from '../../assets/cartSVG'
-import './header.scss'
+import { connect } from 'react-redux'
 import { ReactComponent as Logo } from '../../assets/logo.svg'
-import { ReactComponent as Dollar } from '../../assets/dollar.svg'
+import { fetchCategories } from '../../core/redux/slices/productsSlice'
+import CurrencySelect from '../currencySelect/CurrencySelect'
+import Spinner from '../spinner/Spinner'
+import Bag from '../bag/Bag'
+import './header.scss'
 
-export default class Header extends Component {
-  state = {
-    categories: [],
-  }
-  
+class Header extends Component {
+
   componentDidMount() {
-    apolloClient.query({ query: getCategories }).then(({ data }) =>
-      this.setState({
-        categories: data.categories,
-      })
-    )
-  }
-
-  componentDidUpdate() {
-    console.log(this.state.categories)
+    this.props.fetchCategories()
   }
 
   render() {
+    const { categories, loading } = this.props
     return (
       <header className="header">
         <div className="container header__container">
-          <ul className="categories">
-            {this.state.categories.map(({ name }, i) => (
-              <li className="categories__item" key={i}>
-                <NavLink
-                  className="categories__link"
-                  activeClassName="categories__link--active"
-                  to={name}
-                >
-                  {name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+          {!loading ? 
+            <ul className="categories">
+              {categories.map(({ name }, i) => (
+                <li className="categories__item" key={i}>
+                  <NavLink
+                    className="categories__link"
+                    activeClassName="categories__link--active"
+                    to={`/${name}`}
+                  >
+                    {name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul> : <Spinner myClass="header__spinner" />
+          }
           <Logo />
-
-          <div>
-            <Dollar />
-            <CartSVG />
+          <div className="header__wrapper">
+            <CurrencySelect/>
+            <Bag />
           </div>
         </div>
       </header>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  categories: state.products.categories,
+  loading: state.products.loading,
+})
+
+const mapDispatchToProps = {
+  fetchCategories
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
