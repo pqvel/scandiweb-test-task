@@ -3,9 +3,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Thumbs } from "swiper";
 import { generateId } from "../../core/helpers/generateId";
 import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
 import "./productSlider.scss"
 
 class ProductSlider extends PureComponent {
