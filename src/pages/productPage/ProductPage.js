@@ -53,7 +53,7 @@ class ProductPage extends Component {
     }
     
     const { product } = this.state
-    const { gallery, uid, attributes, name, brand, prices, description } = product
+    const { gallery, uid, attributes, name, brand, prices, description, inStock } = product
 
     return (
       <section className="product-page product">
@@ -76,7 +76,7 @@ class ProductPage extends Component {
               myClass="product__price"
               prices={prices}
             />
-            <button className="product__btn" onClick={() => this.onAddToCart(product)}>Add to cart</button>
+            {inStock && <button className="product__btn" onClick={() => this.onAddToCart(product)}>Add to cart</button>}
             <div 
               className="product__description"
               dangerouslySetInnerHTML={{__html: description}}

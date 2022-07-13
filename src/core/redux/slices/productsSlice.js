@@ -24,6 +24,10 @@ export const productsSlice = createSlice({
       state.error = false
     },
     addToCart: (state, action) => {
+      if (!action.payload.inStock) {
+        return
+      }
+
       const equalCartProducts = []
       state.cartProducts.forEach((cartProduct, i) => {
         if (cartProduct.id === action.payload.id) {
