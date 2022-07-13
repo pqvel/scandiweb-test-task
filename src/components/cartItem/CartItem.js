@@ -39,7 +39,7 @@ export default class CartItem extends PureComponent {
             <Swiper
               slidesPerView={1}
               modules={[Navigation]}
-              navigation
+              navigation={gallery.length > 1}
               spaceBetween={50}
               grabCursor
             >

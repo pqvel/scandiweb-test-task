@@ -5,7 +5,6 @@ import { GET_PRODUCTS } from '../graphql/query/getProducts'
 import { GET_CURRENCIES } from '../graphql/query/getCurrencies'
 import { GET_ONE_PRODUCT } from '../graphql/query/getOneProduct'
 
-
 const productService = () => {
   
   const getCurrencies = () => {
