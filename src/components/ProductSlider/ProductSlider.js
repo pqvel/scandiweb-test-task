@@ -16,6 +16,7 @@ class ProductSlider extends PureComponent {
 
   render() {
     const { images } = this.props
+    console.log(images.length)
 
     return (
       <div className="product__slider">

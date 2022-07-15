@@ -1,13 +1,13 @@
 import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
+import { sanitize } from 'dompurify'
 import { addToCart, fetchOneProduct } from '../../core/redux/slices/productsSlice'
+import { attrPositions } from '../../core/constants/attrPositions';
 import ProductSlider from '../../components/ProductSlider/ProductSlider';
 import ProductAttributes from '../../components/productAttributes/ProductAttributes';
 import ProductPrice from '../../components/productPrice/ProductPrice';
 import Spinner from '../../components/spinner/Spinner';
-import { attrPositions } from '../../core/constants/attrPositions';
-import { generateId } from '../../core/helpers/generateId';
 import './productPage.scss'
 
 class ProductPage extends Component {
@@ -54,7 +54,6 @@ class ProductPage extends Component {
     
     const { product } = this.state
     const { gallery, uid, attributes, name, brand, prices, description, inStock } = product
-
     return (
       <section className="product-page product">
         <div className="container product__container">
@@ -79,8 +78,7 @@ class ProductPage extends Component {
             {inStock && <button className="product__btn" onClick={() => this.onAddToCart(product)}>Add to cart</button>}
             <div 
               className="product__description"
-              dangerouslySetInnerHTML={{__html: description}}
-              key={generateId()}
+              dangerouslySetInnerHTML={{__html: sanitize(description)}}
             />
           </div>
         </div>
@@ -98,4 +96,5 @@ const mapDispatchToProps = {
   addToCart,
   fetchOneProduct
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProductPage))

@@ -35,8 +35,8 @@ class ProductAttributes extends PureComponent {
               case 'swatch':
                 return (
                   <div key={generateId()}>
-                    <ProductAttrTitle name={name} key={generateId()} />
-                    <ul className="cart__item-attribute" key={generateId()}>
+                    <ProductAttrTitle name={name}/>
+                    <ul className="cart__item-attribute">
                       {items.map((attrItem) => (
                         <li   
                           className={`cart__item-attr-${type}${attrItem.active ? ` cart__item-attr-${type}--active` : ''}`}
@@ -51,8 +51,8 @@ class ProductAttributes extends PureComponent {
               case 'text':
                 return (
                   <div key={generateId()}>
-                    <ProductAttrTitle name={name} key={generateId()} />
-                    <ul className="cart__item-attribute" key={generateId()}>
+                    <ProductAttrTitle name={name}/>
+                    <ul className="cart__item-attribute">
                       {items.map((attrItem) => (
                         <li 
                           className={`cart__item-attr-${type}${attrItem.active ? ` cart__item-attr-${type}--active` : ''}`}
