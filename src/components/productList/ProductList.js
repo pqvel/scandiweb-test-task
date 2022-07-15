@@ -58,7 +58,7 @@ class ProductList extends Component {
             const { categoryId } = this.props.match.params
             return ( 
               <ProductItem 
-                key={item.id} 
+                key={item.uid} 
                 product={item} 
                 currUrl={categoryId}
                 onAddToCart={(event) => this.onAddToCart(event, item)}

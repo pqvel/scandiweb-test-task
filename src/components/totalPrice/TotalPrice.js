@@ -1,17 +1,14 @@
 import { PureComponent } from "react";
 import { connect } from "react-redux";
+import { totalPrice } from "../../core/helpers/totalPrice";
 
 class TotalPrice extends PureComponent {
   render() {
-    const { products, currentValue } = this.props
-    const total = products.reduce((acc, product) => {
-      const { count, prices } = product;
-      const value = prices.filter(({ currency }) => currency.symbol === currentValue)[0].amount
-      return acc + value * count
-    }, 0)
+    const { products, currentValue, myClass = '' } = this.props
+
     return (
-      <span>
-        {total}
+      <span className={myClass}>
+        {currentValue}{totalPrice(products, currentValue)}
       </span>
     )
   }

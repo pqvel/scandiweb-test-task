@@ -10,9 +10,14 @@ import './cartItem.scss'
 
 export default class CartItem extends PureComponent {
 
+  onCountChange = (value) => {
+    const { onChangeCount, product } = this.props
+    const { count, uid } = product
+    return onChangeCount(value, count, uid)
+  }
+
   render() {
-    const { product, onChangeCount } = this.props
-    const { name, brand, prices, attributes, gallery, count, uid } = product
+    const { name, brand, prices, attributes, gallery, count, uid } = this.props.product
 
     return (
       <li className="cart__item">
@@ -32,8 +37,8 @@ export default class CartItem extends PureComponent {
         <div className="cart__item-right">
           <div className="cart__item-counter">
             <span className="cart__item-counter-count">{count}</span>
-            <button onClick={() => onChangeCount(1, count, uid)} className="cart__item-counter-btn" />
-            <button onClick={() => onChangeCount(-1, count, uid)} className="cart__item-counter-btn" />
+            <button onClick={() => this.onCountChange(1)} className="cart__item-counter-btn" />
+            <button onClick={() => this.onCountChange(-1)} className="cart__item-counter-btn" />
           </div>
           <div className="cart__item-slider">
             <Swiper

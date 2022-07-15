@@ -1,23 +1,20 @@
 import { Component } from "react"
 import { connect } from "react-redux"
 import { removeAllProductsFromCart } from "../../core/redux/slices/productsSlice"
+import { totalPrice } from "../../core/helpers/totalPrice";
 import CartList from "../../components/cartList/CartList";
-import './cartPage.scss'
+import TotalPrice from "../../components/totalPrice/TotalPrice";
+import "./cartPage.scss"
 
 class CartPage extends Component {
   render() {
     const { products, currentValue, removeAllProductsFromCart } = this.props
 
-    const total = products.reduce((acc, product) => {
-      const { count, prices } = product;
-      const value = prices.filter(({ currency }) => currency.symbol === currentValue)[0].amount
-      return acc + value * count
-    }, 0)
-
     const count = products.reduce((acc, item) => {
       return acc + item.count
     }, 0)
 
+    const total = totalPrice(products, currentValue)
     const tax = 21;
     const totalTax = total * tax / 100;
 
@@ -39,7 +36,7 @@ class CartPage extends Component {
                 </tr>
                 <tr className="cart__table-item">
                   <td className="bold">Total:</td>
-                  <td>{currentValue}{total.toFixed(2)}</td>
+                  <td><TotalPrice /></td>
                 </tr>
               </tbody>
             </table>

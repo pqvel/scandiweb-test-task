@@ -55,6 +55,7 @@
       display: flex;
       align-items: center;
       text-align: center;
+      justify-content: center;
       font-family: "Source Sans Pro";
       font-weight: 400;
       letter-spacing: 0.05em;
@@ -64,7 +65,7 @@
       cursor: pointer;
       min-width: 63px;
       min-height: 45px;
-      padding: 12px 25px 15px;
+      padding: 12px 5px 15px;
       margin-right: 12px;
       transition: 0.2s;
 
@@ -306,6 +307,7 @@
         padding: 0 2px;
         margin-right: 8px;
         transition: 0.2s;
+        max-width: 50px;
       }
   
       &-counter {

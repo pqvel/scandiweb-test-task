@@ -5,6 +5,7 @@ import { removeAllProductsFromCart } from '../../core/redux/slices/productsSlice
 import CartList from '../cartList/CartList'
 import CartSVG from '../../assets/CartSVG'
 import './bag.scss'
+import TotalPrice from '../totalPrice/TotalPrice'
 
 class Bag extends Component {
   state = {
@@ -28,16 +29,10 @@ class Bag extends Component {
 
   render() {
     const { isOpen } = this.state;
-    const { products, removeAllProductsFromCart, currentValue } = this.props
+    const { products, removeAllProductsFromCart } = this.props
     
     const count = products.reduce((acc, item) => {
       return acc + item.count
-    }, 0)
-
-    const total = products.reduce((acc, product) => {
-      const { count, prices } = product;
-      const value = prices.filter(({ currency }) => currency.symbol === currentValue)[0].amount
-      return acc + value * count
     }, 0)
 
     return (
@@ -61,7 +56,7 @@ class Bag extends Component {
               </div>
               <div className="bag__row bag__total-block">
                 <span className="bag__total-label">Total</span>
-                <span className="bag__total-value">{currentValue}{total.toFixed(2)}</span>
+                <TotalPrice myClass="bag__total-value"/>
               </div>
               <div className="bag__row bag__btns">
                 <Link onClick={this.toggleModal} className="bag__link" to="/cart">View bag</Link>
