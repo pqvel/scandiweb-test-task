@@ -6,36 +6,6 @@ import { GET_CURRENCIES } from '../graphql/query/getCurrencies'
 import { GET_ONE_PRODUCT } from '../graphql/query/getOneProduct'
 
 const productService = () => {
-  
-  const getCurrencies = () => {
-    return apolloClient
-            .query({ query: GET_CURRENCIES })
-            .then(({ data }) => data.currencies)
-  }
-
-  const getCategories = () => {
-    return apolloClient
-            .query({ query: GET_CATEGORIES })
-            .then(({ data }) => data.categories)
-  }
-
-  const getProducts = (category = 'all') => {
-    return apolloClient
-            .query({ query: GET_PRODUCTS, variables: {input: {title: category}} })
-            .then(({ data }) => {
-              const { products } = data.category
-              return {
-                ...data.category,
-                products: products.map(_transformProduct)
-              }
-            })
-  }
-
-  const getOneProduct = (id) => {
-    return apolloClient
-            .query({ query: GET_ONE_PRODUCT, variables: { id } })
-            .then(({ data }) => _transformProduct(data.product))
-  }
 
   const _transformProduct = (product) => {
     return {
@@ -54,6 +24,37 @@ const productService = () => {
         }
       })
     }
+  }
+
+  const _request = (query, variables) => {
+    return apolloClient.query({query, variables})
+  }
+  
+  const getCurrencies = () => {
+    return _request(GET_CURRENCIES)
+            .then(({ data }) => data.currencies)
+  }
+
+  const getCategories = () => {
+    return _request(GET_CATEGORIES)
+            .then(({ data }) => data.categories)
+  }
+
+  const getProducts = (category = 'all') => {
+    const variables = {input: {title: category}}
+    return _request(GET_PRODUCTS, variables)
+            .then(({ data }) => {
+              const { products } = data.category
+              return {
+                ...data.category,
+                products: products.map(_transformProduct)
+              }
+            })
+  }
+
+  const getOneProduct = (id) => {
+    return _request(GET_ONE_PRODUCT, { id })
+            .then(({ data }) => _transformProduct(data.product))
   }
 
   return {
