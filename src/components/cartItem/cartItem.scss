@@ -114,6 +114,9 @@
 
     &-attribute {
       display: flex;
+      overflow: hidden;
+      flex-wrap: wrap;
+      row-gap: 7px;
     }
 
     &-attribute-title {
@@ -285,6 +288,10 @@
         font-size: 16px;
         line-height: 160%;
         margin-bottom: 0;
+      }
+
+      &-attribute {
+        max-width: 150px;
       }
       
       &-price {

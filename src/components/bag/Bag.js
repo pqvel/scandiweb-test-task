@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { removeAllProductsFromCart } from '../../core/redux/slices/productsSlice'
 import CartList from '../cartList/CartList'
 import CartSVG from '../../assets/CartSVG'
-import './bag.scss'
 import TotalPrice from '../totalPrice/TotalPrice'
+import './bag.scss'
 
 class Bag extends Component {
   state = {
@@ -14,10 +14,11 @@ class Bag extends Component {
 
   componentDidUpdate(__, prevState) {
     if (!prevState.isOpen && this.state.isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden"
     }
+    
     if (prevState.isOpen && !this.state.isOpen) {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset"
     }
   }
 

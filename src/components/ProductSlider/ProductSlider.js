@@ -22,7 +22,7 @@ class ProductSlider extends PureComponent {
         <Swiper
           className="mySwiper1"
           direction="vertical"
-          slidesPerView={3}
+          slidesPerView={3.5}
           spaceBetween={40}
           modules={[FreeMode, Thumbs]}
           onSwiper={this.onThumbsSlider}
@@ -55,7 +55,7 @@ class ProductSlider extends PureComponent {
           }
         </Swiper>
       </div>
-    );
+    )
   }
 }
 
